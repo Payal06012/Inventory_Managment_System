@@ -1,0 +1,4 @@
+id : 1 ,  name : Payal , email : payal@gmail.com  ,  roel : Admin 
+id : 1 ,  name : Payal , email : payal@gmail.com  ,  roel : Admin 
+id : 1 ,  name : Payal , email : payal@gmail.com  ,  role : Admin 
+[{:id=>1, :name=>"Payal", :email=>"payal@gmail.com", :role=>"Admin"}][{:id=>1, :name=>"Payal", :email=>"payal@gmail.com", :role=>"Admin"}][{:id=>1, :name=>"Payal", :email=>"payal@gmail.com", :role=>"Admin"}][{:id=>1, :name=>"Payal", :email=>"payal@gmail.com", :role=>"Admin"}][{:id=>1, :name=>"Payal", :email=>"payal@gmail.com", :role=>"Admin"}][{:id=>1, :name=>"Payal", :email=>"payal@gmail.com", :role=>"Admin"}][{:id=>1, :name=>"Payal", :email=>"payal@gmail.com", :role=>"Admin"}, {:id=>1, :name=>"Payal", :email=>"khushi@gmail.com", :role=>"Admin"}]

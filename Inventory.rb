@@ -1,0 +1,1 @@
+puts "Inventory_Management_System"
