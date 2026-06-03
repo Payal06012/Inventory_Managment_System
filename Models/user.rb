@@ -1,130 +1,53 @@
-class User 
-   attr_accessor :id , :name , :email ,:role , :user_data
-  
-  @@array = []
+require_relative "../Controller/user_controller"
 
-  def initialize(id , name , email , role)
-   @id = id
-   @name = name 
-   @email = email
-   @role = role
-   
-   @user_data = { id: @id , name: @name , email: @email , role: @role}
-  
-  #  puts "user data : "
-  #  puts @user_data
+class User
+   attr_accessor :id , :name , :email , :role
 
-  if @@array.empty?
-    @@array.push(@user_data)
-  else
-
-   puts check_if_exist
-
-   unless check_if_exist            #VALIDATE USER EXISTENCE
- 
-  @@array.push(@user_data)
-  # #  puts "array : #{@@array}"
-  # #  p @@array[0][:email]
-    
-   end
-
-  end
+    def initialize(id , name , email , role)
+     @id = id
+     @name = name
+     @email = email
+     @role = role
 
 
+  #convert data to string to save in a file 
+     data = to_string_data
+     p data 
 
-  end
-
-
-
-  def to_plainData
- "id : #{id} ,  name : #{name} , email : #{email}  ,  role : #{role}"
-  end
-   
-
-
-
-  #====CHECK ID USER IS ALREADY EXIST =========
-
-  def check_if_exist
-
-    @@array.each do |user|
-    #  puts "#{@email}  : #{user[:email]}"
-
-      if @email == user[:email] 
-        puts "user Already exist"
-        
-        return true 
-      else 
-        return false
-      end
-
-    end
-  end
-
-
-  def save_data 
-    File.open("../Data/user.txt" , "a") do |file|
-    file.write(@@array)
-
+     user = User_controller.new   
+     user.save_user(data)
     
     end
-  end 
-
-def self.getUser
-
-
-  filedata = File.read("../Data/user.txt")
-  #  puts filedata 
-
-    arr = filedata.strip.split("\n")
-    # puts arr
-
-    # ===== CHECHING DUPLICATE DATA =====
-
-    puts "All User :"
-
-    arr.each do |data| 
-       p "#{data} \n \n"
+    
+    def to_string_data 
+     "#{@id} | #{@name} | #{@email} | #{@role}"
     end
 
 end
-end
 
-class Admin < User
-
+class Admin < User 
+   
     def initialize(id , name , email)
-
-    super(id , name , email, "Admin")
-
-    # puts "#{id}  name = #{name}"
- end
-
-    
+        super(id , name , email, "Admin")
+    end
 end
 
-# ======= Takig user Inputs ============
+class Customer < User 
+   
+    def initialize(id , name , email)
+        super(id , name , email, "Customer")
+    end
+end
 
-# puts "Enter a User Id "
-# id = gets.chomp.to_i
+class Vendor < User 
+   
+    def initialize(id , name , email)
+        super(id , name , email, "Vendor")
+    end
+end
 
-# puts "Enter your user name ="
-# name  = gets.chomp
+#  user1 = User.new(1 , "Payal" , "payal@gmail.com" , "Admin")
+#  a1 = Admin.new(1 , "Admin" , "Admin@gmail.com")
+#  c1 = Customer.new(1 , "customer" , "Customer@gmail.com")
+#  v1 = Vendor.new(1 , "vendor" , "Verndor@gmail.com")
 
-#puts " enter your email"
-# email = gets.chomp
-
-# puts "#{id}  name = #{name}"
-
-# user1 = Admin.new(id, name , enail)
-
-#========= CREACTING USERS ================
-
-user1 = Admin.new(1 , "Payal" , "payal@gmail.com")
-# user1.save_user_data
-# user1.check_duplicate
-
-user2 = Admin.new(2 , "Payal" , "payal@gmail.com")
-user3 = Admin.new(3 , "Payal" , "payal@gmail.com")
-user4 = Admin.new(1 , "Payal" , "khushi@gmail.com") 
-
-User.getUser
