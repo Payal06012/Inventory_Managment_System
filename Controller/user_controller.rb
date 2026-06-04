@@ -1,4 +1,3 @@
-# require_relative "../Models/user"
 
 class User_controller
 
@@ -38,6 +37,7 @@ class User_controller
     end
 
 end
+
 
 # user1 = User_controller.new
 #   arr = user1.get_all_user

@@ -1,5 +1,5 @@
 require_relative './user_controller'
-# require_relative '../Models/user.rb'
+require_relative '../Models/user.rb'
 
 class Auth_controller
      attr_reader :users
@@ -39,7 +39,11 @@ class Auth_controller
             # if user is not exist craete new user
          p is_exist 
         unless is_exist 
-                User.new(id, name , email , role)     #create User
+            if role.downcase == "customer"
+                Customer.new(id, name , email)
+            else
+            Vendor.new(id, name , email)
+            end
         end
 
     end
@@ -48,17 +52,26 @@ class Auth_controller
 
     def login(name , email)
 
+        login = false ;
+
      @users.each do |data|
         exist_name = data[:name].strip
         exist_email = data[:email].strip
 
         if name == exist_name  && email == exist_email
+            login = true
             puts "login successfully"
-            break
+            
+            return login
         end
 
         # p (name == exist_name  && email == exist_email)
      
+     end
+
+     unless login 
+        puts "Invalid Credentials"
+        return login 
      end
 end
 
@@ -70,9 +83,10 @@ end
 # c1 = Customer.new(1 , "customer" , "Customer@gmail.com")
 #  v1 = Vendor.new(1 , "vendor" , "Verndor@gmail.com")
 
-# a1 = Auth_controller.new
-# # a1.register(2, "auth" , "auth@gmail.com" ,"Admin")
-# # a1.register(2, "auth" , "Admin1@gmail.com" ,"Admin")
 
-# a1.login("auth" , "Admin1@gmail.com")
+a1 = Auth_controller.new
+a1.register(2, "auth" , "auth1@gmail.com" ,"Customer")
+a1.register(2, "auth" , "Admin2@gmail.com" ,"Vendor")
 
+#  a = a1.login("auh" , "auth@gmail.com")
+# puts a 

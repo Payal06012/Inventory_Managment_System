@@ -54,3 +54,7 @@
 2 | auth | Admi@gmail.com | Admin
 2 | auth | Admim1@gmail.com | Admin
 2 | auth | Admin1@gmail.com | Admin
+101 | Aman | Aman@gmail.com | Customer
+2 | auth | auth1@gmail.com | Customer
+2 | auth | Admin2@gmail.com | Vendor
+101 | payal | test@123 | Vendor

@@ -10,7 +10,7 @@ puts "Enter 2 for Login"
 
 input = gets.chomp.to_i
 
-case input 
+case input                                                                               
 
 when 1 
     puts "Enter your ID "
@@ -26,18 +26,29 @@ when 1
     puts "Enter Role :"
     role = gets.chomp
 
-    auth = auth_controller.new
+    auth = Auth_controller.new
     auth.register(id , name , email , role)
 
 when 2
-     puts "Enter your Nmae "
-    name = gets.chomp.to_i
+    login = false
+
+    until login 
+
+    puts "Enter your Name "
+    name = gets.chomp
     
     puts "Enter your email"
     email = gets.chomp
 
-    auth = auth_controller.new
-    auth.login(name , email)
+    p "#{name}  #{email}"
+
+    auth = Auth_controller.new
+    login = auth.login(name , email)
+
+     unless login 
+        puts "login Again"
+     end
+    end
 
 else 
     puts "invalid option"
