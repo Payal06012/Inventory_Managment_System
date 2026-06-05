@@ -10,7 +10,7 @@ class Auth_controller
      
     end
 
-    def register(id , name , email , role)
+    def register(name , email , role)
     
            email = email.strip
 
@@ -42,7 +42,7 @@ class Auth_controller
             if role.downcase == "customer"
                 Customer.new(id, name , email)
             else
-            Vendor.new(id, name , email)
+            Vendor.new( name , email)
             end
         end
 
@@ -54,7 +54,7 @@ class Auth_controller
 
         login = false ;
 
-     @users.each do |data|
+     @users.each do |data , chomp = true|
         exist_name = data[:name].strip
         exist_email = data[:email].strip
 
@@ -62,7 +62,7 @@ class Auth_controller
             login = true
             puts "login successfully"
             
-            return login
+            return login , data[:role].downcase.strip
         end
 
         # p (name == exist_name  && email == exist_email)
@@ -85,8 +85,10 @@ end
 
 
 a1 = Auth_controller.new
-a1.register(2, "auth" , "auth1@gmail.com" ,"Customer")
-a1.register(2, "auth" , "Admin2@gmail.com" ,"Vendor")
+# a1.register(2, "auth" , "auth1@gmail.com" ,"Customer")
+# a1.register(2, "auth" , "Admin2@gmail.com" ,"Vendor")
 
-#  a = a1.login("auh" , "auth@gmail.com")
-# puts a 
+#  a = a1.login("vendor" , "vendor@gmail.com")
+# p a 
+
+

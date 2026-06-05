@@ -8,22 +8,22 @@ class Electronics < Product
   attr_accessor  :count_stock
     end
 
-    def initialize(p_id , p_name , p_price , p_stock , vendor_id , p_sub_category, attr1)
+    def initialize(  p_name , p_price , p_stock , vendor_id , p_sub_category, attr1)
       
     @category = "Electronics"
-    
+     
      stock = self.class.count_stock
 
       @stock =  calculate_stock(stock , p_stock)
 
-        # puts "CLASS ELECTRONICS"
+        puts "CLASS ELECTRONICS"
 
         puts "stock : #{p_stock}" 
 
         # @count_stock = @count_stock + p_stock
         puts "Electronics stock = #{@count_stock}"
 
-    super(p_id , p_name , p_price , @category, @stock, vendor_id , p_sub_category, attr1)
+    super(  p_name , p_price , @category, @stock, vendor_id , p_sub_category, attr1)
      
     end
 
@@ -38,7 +38,7 @@ class Phone < Electronics
      attr_accessor :count_stock
     end
 
-    def initialize(p_id , p_name , p_price , p_stock , vendor_id , attr1)
+    def initialize(  p_name , p_price , p_stock , vendor_id , attr1)
 
     @sub_category = "Phone"
     
@@ -51,7 +51,7 @@ class Phone < Electronics
      
 #  @count_stock = @count_stock + p_stock 
 
-    super(p_id , p_name , p_price , @stock , vendor_id , @sub_category , attr1)
+    super(  p_name , p_price , @stock , vendor_id , @sub_category , attr1)
      
     end
 end
@@ -66,7 +66,7 @@ class Charger < Electronics
       attr_accessor :count_stock
     end
 
-    def initialize(p_id , p_name , p_price ,p_stock , vendor_id , attr1)
+    def initialize(  p_name , p_price ,p_stock , vendor_id , attr1)
        
         @sub_category = "Charger"
 
@@ -85,7 +85,7 @@ class Charger < Electronics
         puts "stock = #{@stock}"
 
 
-        super(p_id , p_name , p_price , @stock, vendor_id , @sub_category, attr1)
+        super(  p_name , p_price , @stock, vendor_id , @sub_category, attr1)
      
     end
 
@@ -95,11 +95,11 @@ class Charger < Electronics
 
 end
 
-# (p_id , p_name , p_price , p_stock , vendor_id  attr1)
+# (  p_name , p_price , p_stock , vendor_id  attr1)
 
-p1 = Charger.new(1 , "vivo" , 200 , 3 , 101 , "blue")
-p1 = Charger.new(1 , "vivo" , 200 , 32 , 101 , "blue")
-p1 = Charger.new(1 , "vivo" , 200 , 312, 101 , "blue")
+p1 = Charger.new("vivo" , 200 , 3 , 101 , "blue")
+p1 = Charger.new("vivo" , 200 , 32 , 101 , "blue")
+p1 = Charger.new("vivo" , 200 , 312, 101 , "blue")
 
 
 

@@ -8,7 +8,7 @@ class Cloths < Product
   attr_accessor  :count_stock
     end
 
-    def initialize(p_id , p_name , p_price , p_stock , vendor_id , p_sub_category, attr1)
+    def initialize(  p_name , p_price , p_stock , vendor_id , p_sub_category, attr1)
       
     @category = "Cloths"
     
@@ -23,23 +23,22 @@ class Cloths < Product
         # @count_stock = @count_stock + p_stock
         puts "Electronics stock = #{@count_stock}"
 
-    super(p_id , p_name , p_price , @category, @stock, vendor_id , p_sub_category, attr1)
+    super(  p_name , p_price , @category, @stock, vendor_id , p_sub_category, attr1)
      
     end
 
 end
 
 
-
 class Male_Cloths < Cloths
 
   @count_stock = 0
-  
+
     class << self 
      attr_accessor :count_stock
     end
 
-    def initialize(p_id , p_name , p_price , p_stock , vendor_id , attr1)
+    def initialize(  p_name , p_price , p_stock , vendor_id , attr1)
 
     @sub_category = "Male_Cloths"
     
@@ -52,7 +51,7 @@ class Male_Cloths < Cloths
      
 #  @count_stock = @count_stock + p_stock 
 
-    super(p_id , p_name , p_price , @stock , vendor_id , @sub_category , attr1)
+    super(  p_name , p_price , @stock , vendor_id , @sub_category , attr1)
      
     end
 
@@ -66,7 +65,7 @@ class Female_cloths  < Cloths
      attr_accessor :count_stock
     end
 
-    def initialize(p_id , p_name , p_price , p_stock , vendor_id , attr1)
+    def initialize(  p_name , p_price , p_stock , vendor_id , attr1)
 
     @sub_category = "Female_Cloths"
     
@@ -79,15 +78,15 @@ class Female_cloths  < Cloths
      
 #  @count_stock = @count_kstock + p_stock 
 
-    super(p_id , p_name , p_price , @stock , vendor_id , @sub_category , attr1)
+    super(  p_name , p_price , @stock , vendor_id , @sub_category , attr1)
      
     end
 
 end
 
 
-p1 = Male_Cloths.new(1 , "shirts" , 200 , 3 , 101 , "blue")
-p1 = Male_Cloths.new(1 , "shirts" , 200 , 32 , 101 , "blue")
-p1 = Male_Cloths.new(1 , "shirts" , 200 , 312, 101 , "blue")
+# p1 = Male_Cloths.new( "shirts" , 200 , 3 , 101 , "blue")
+# p1 = Male_Cloths.new( "shirts" , 200 , 32 , 101 , "blue")
+# p1 = Male_Cloths.new( "shirts" , 200 , 312, 101 , "blue")
 
 

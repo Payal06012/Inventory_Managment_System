@@ -1,3 +1,6 @@
-1  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   3  |   101
-1  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   32  |   101
-1  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   312  |   101
+1  |  vivo |  Electronics  |   Phone  |  blue   |   200  |   3  |   101
+8  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   32  |   101
+9  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   312  |   101
+4  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   3  |   101
+5  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   32  |   101
+6  |  vivo |  Electronics  |   Charger  |  blue   |   200  |   312  |   101

@@ -1,12 +1,16 @@
 require_relative "../Controller/product_controller"
+require_relative "../utils/generate_id"
 
 class Product 
      
-    attr_accessor :p_id , :p_name , :p_sub_category  , :p_stock , :p_category  , :p_price  , :attr1  , :vendor_id
+    attr_accessor  :p_id , :p_name , :p_sub_category  , :p_stock , :p_category  , :p_price  , :attr1  , :vendor_id
 
-    def initialize(p_id , p_name , p_price , p_category, p_stock , vendor_id , p_sub_category, attr1)
+    def initialize(p_name , p_price , p_category, p_stock , vendor_id , p_sub_category, attr1)
 
-        @p_id = p_id
+        generate_id = Generate_id.new
+         p generate_id.get_product_id
+
+        @p_id = generate_id.get_product_id
         @p_name = p_name
         @p_price = p_price
         @p_category = p_category
@@ -19,9 +23,12 @@ class Product
 
     puts show 
 
+    #saving product data 
+
     data_to_save = to_String_data
 
-    Product_controller.save_product(data_to_save)
+    product = Product_controller.new
+    product.save_product(data_to_save)
 
     end
 

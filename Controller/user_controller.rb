@@ -20,21 +20,28 @@ class User_controller
         
 
        end
-#   puts  all_users
+
+      #   puts  all_users
 
 
     end
 
-  #=== SAVE USER DATA=====
+      #=== SAVE USER DATA=====
 
-    def save_user(data)
+   def save_user(data)
      File.open("../Data/user.txt" , "a") do |file|
         #  puts to_string_data
         file.puts data
-        puts "user craeted successfully"
+        puts "user created successfully"
 
      end
-    end
+    
+   
+   end
+
+ 
+
+
 
 end
 
