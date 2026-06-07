@@ -65,12 +65,13 @@ end
 #     puts "invalid option"
 # end
 
-
+#============================================
 role = "vendor"
 user_name = "vendor"
 email = "vendor@123"
+vendorId = "V5"
 
-
+#======== MENU =================
 
 case role 
 
@@ -92,9 +93,14 @@ when "vendor"
     separator
 
     puts "\n Select Options by writing respective Number \n"
-    puts "1 View all products"
+    puts "1 View My products"
     puts "2 Add new Product"
-    puts "3 View Orders "
+    puts "3 Remove Product"
+    puts "4 View incoming Order"
+    puts "5 Accepot Order"
+    puts "6 Reject Order"
+    puts "7 View Orders "
+
     option = gets.chomp.to_i
 
 when "admin"
@@ -105,15 +111,20 @@ when "admin"
     puts "\n Select Options by writing respective Number \n"
     puts "1 View All vendors"
     puts "2 View all Products"
+    puts "3 Add Product"
+    puts "4 Remove Product"
+    puts "Update Product Stock"
+    puts "view All Orders"
+
     option = gets.chomp.to_i
 
 end
 
-# # puts option 
+#=======CUSTOMER RESPONSIBILITIES =================
 
 if role == "customer"
     if option == 1
-        products = PRODUCT.get_all_product
+        products = PRODUCT_CONTROLLER.get_all_product
         # puts products
 
         separator
@@ -139,11 +150,36 @@ opti
     end
 end
 
+
+#======= VENDOR RESPONSIBILITIES =================
+
+
 if role == "vendor"
+
+     #get vendor_id
+    userData = USER_CONTROLLER.get_user(user_name , email)
+        #  puts "user_name = #{user_name}     email = #{email}"
+        if userData
+         vendorId = userData[:id].strip
+          puts vendorId 
+        end
+
     if option == 1
         separator
         puts "VIEW PRODUCT"
         separator
+
+        products = PRODUCT_CONTROLLER.get_all_product
+        s_no = 1
+         puts "Product Name   ||   Product_Category   ||   stock"
+        products.each do |data|
+    
+           if data[:vendor_id].strip == vendorId
+             puts "#{s_no}.  s#{data[:name].strip} ... #{data[:category].strip} ... #{data[:stock].strip}"
+             s_no += 1
+            end
+        end
+
     elsif option == 2
         separator
         puts "ADD NEW PRODUCT"
@@ -172,15 +208,6 @@ if role == "vendor"
         puts "Enter stock"
         stock = gets.chomp.to_i
                 
-        #get vendor_id
-         userData = USER_CONTROLLER.get_user(user_name , email)
-        #  puts "user_name = #{user_name}     email = #{email}"
-        if userData
-         vendorId = userData[:id].strip
-          puts vendorId 
-        end
-
-
         # create producct 
         if category == 1
             if  sub_category == 1
@@ -198,24 +225,55 @@ if role == "vendor"
                  Female_Cloths.new( product_name , price , stock , vendorId ,feature)
                 
             end
-          
-
+        
         end
 
+    
+    elsif option == 3
+        separator
+        puts "REMOVE PRODUCT"
+        separator
+        
+        puts "Enter Product Name"
+        product_name = gets.chomp
 
+        puts "Enter Product Sub_Category"
+        p_sub_category = gets.chomp
 
-    elsif option ==3
+        puts "Enter its feature"
+        feature = gets.chomp
+
+        PRODUCT_CONTROLLER.remove_product( product_name, p_sub_category , feature)
+    
+     elsif option == 4
+        separator
+        puts "ORDERS"
+        separator
+
+     elsif option == 5
+        separator
+        puts "VIEW ORDERS TO ACCEPT"
+        separator
+
+     elsif option == 6 
+        separator
+        puts "REJECT ORDERS"
+        separator
+
+     elsif option == 7 
         separator
         puts "VIEW ORDERS"
         separator
     end
 end
 
+#========= ADMIN RESPONSIBILITIES =================
+
 
 # # if role == "admin"
 # #     if option == 1
 # #         separator
-# #         puts "VIEW ALL VENDOR"
+# #         puts "VIEW ALL VENDOR"3e
 # #         separator
 # #     elsif OPTION == 2
 # #         separator

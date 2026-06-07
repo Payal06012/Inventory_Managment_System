@@ -25,11 +25,16 @@ class Product
 
     #saving product data 
 
-    data_to_save = to_String_data
 
     product = Product_controller.new
-    product.save_product(data_to_save)
-
+    p_data = product.get_product(p_sub_category , p_name , attr1)
+    
+        if p_data
+            puts "product already exist with stock = #{p_data[:stock]}"
+        else
+          data_to_save = to_String_data
+          product.save_product(data_to_save)
+        end
     end
 
     def show 

@@ -1,6 +1,6 @@
 class Product_controller
 
-    #===SAVE PRODUCT =======
+    #===SAVE PRODUCT DATA IN FILE=======
 
     def  save_product(data)
       p data 
@@ -34,21 +34,23 @@ class Product_controller
     end
   end
 
-  # ======= remove product =====
+  # ======= REMOVE PRODUCT =====
 
-  def  remove_product( sub_category , name , attrr)
+  def  remove_product( name , sub_category , attrr)
       
     index = 0
     products = get_all_product
     products.length
+    is_exist = false
 
     get_all_product.each do |data|
       exist_sub_category = data[:sub_category].strip.downcase
       exist_name = data[:name].strip.downcase
       exist_attr = data[:atr].strip.downcase
 
-      if exist_sub_category == sub_category  && exist_attr == attrr  && exist_name == name
-      #  puts "#{sub_category}  #{name}  #{attrr}"
+      if exist_sub_category == sub_category.strip.downcase  && exist_attr == attrr.strip.downcase  && exist_name == name.strip.downcase  
+      is_exist = true
+        #  puts "#{sub_category}  #{name}  #{attrr}"
         #  get_all_product.delete(data)
         puts index
           products.delete_at(index)
@@ -59,23 +61,49 @@ class Product_controller
       end
     end
 
-    puts products
+    # puts products
 
-    #==== save updated data to file ====
-
-     products.each do |data|
-       puts data 
-     end
-
+        #==== save updated data to file ====
+  if is_exist  
+    File.open("../Data/product.txt", "w") do |file|
+      products.each do |data|
+          file.puts data.values.map(&:to_s).map(&:strip).join(" | ")
+      end
+    end
+    puts "Product removed Successfully"
+  else
+     puts "Product not found"
+  end
        
   end
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  
+  #=======GET PRODUCT =========
+
+  def get_product(sub_category , name , attrr)
+
+      products = get_all_product
+      is_exist = false
+
+      get_all_product.each do |data|
+      exist_sub_category = data[:sub_category].strip.downcase
+      exist_name = data[:name].strip.downcase
+      exist_attr = data[:atr].strip.downcase
+
+      if exist_sub_category == sub_category.strip.downcase  && exist_attr == attrr.strip.downcase  && exist_name == name.strip.downcase
+           is_exist = true          
+           return data 
+        end
+      end
+
+      unless is_exist
+         return false
+      end
+  end
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 end
 
-# p1 = Product_controller.new
-# p1.remove_product("charger" , "vivo" , "blue")
+p1 = Product_controller.new
+p1.remove_product("Adapter" , "Charger","White")
+# product = p1.get_product( "Adapter" , "Charger","White")
+# p product 
 
-# File.open("../Data/test.txt" , "r") do |f|
-#   p f 
-#   File.delete(f)
-# end

@@ -85,7 +85,7 @@ class Female_Cloths  < Cloths
 end
 
 
-# p1 = Male_Cloths.new( "shirts" , 200 , 3 , 101 , "blue")
+p1 = Male_Cloths.new( "pents" , 200 , 3 , 101 , "blue")
 # p1 = Male_Cloths.new( "shirts" , 200 , 32 , 101 , "blue")
 # p1 = Female_Cloths.new( "shirts" , 200 , 312, 101 , "blue")
 
