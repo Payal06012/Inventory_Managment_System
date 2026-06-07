@@ -66,10 +66,10 @@ end
 # end
 
 #============================================
-role = "vendor"
-user_name = "vendor"
-email = "vendor@123"
-vendorId = "V5"
+role = "admin"
+user_name = "Admin"
+email = "Admin@gmail.com"
+# vendorId = "V5"
 
 #======== MENU =================
 
@@ -96,10 +96,11 @@ when "vendor"
     puts "1 View My products"
     puts "2 Add new Product"
     puts "3 Remove Product"
-    puts "4 View incoming Order"
-    puts "5 Accepot Order"
-    puts "6 Reject Order"
-    puts "7 View Orders "
+    puts "4 upadte product stock"
+    puts "5 View incoming Order"
+    puts "6 Accepot Order"
+    puts "7 Reject Order"
+    puts "8 View Orders "
 
     option = gets.chomp.to_i
 
@@ -113,8 +114,8 @@ when "admin"
     puts "2 View all Products"
     puts "3 Add Product"
     puts "4 Remove Product"
-    puts "Update Product Stock"
-    puts "view All Orders"
+    puts "5 Update Product Stock"
+    puts "6 view All Orders"
 
     option = gets.chomp.to_i
 
@@ -172,8 +173,8 @@ if role == "vendor"
         products = PRODUCT_CONTROLLER.get_all_product
         s_no = 1
          puts "Product Name   ||   Product_Category   ||   stock"
-        products.each do |data|
-    
+
+        products.each do |data|    
            if data[:vendor_id].strip == vendorId
              puts "#{s_no}.  s#{data[:name].strip} ... #{data[:category].strip} ... #{data[:stock].strip}"
              s_no += 1
@@ -244,23 +245,60 @@ if role == "vendor"
         feature = gets.chomp
 
         PRODUCT_CONTROLLER.remove_product( product_name, p_sub_category , feature)
-    
-     elsif option == 4
+    elsif option == 4
+        separator
+        puts "UPDATE PRODUCT STOCK"
+        separator
+
+        puts "choose a number \n 1 . Add stock  \n 2.Reduce Stock"
+        update_option = gets.chomp.to_i
+        puts "Enter number of sub category  \n 1.Phones  \n 2. Charger \n 3. MaleCloths  \n 4. FemaleCloths"
+        sub_category_option = gets.chomp.to_i
+
+        if sub_category_option == 1
+            sub_category = "Phone" 
+        elsif sub_category_option  == 2
+            sub_category = "Charger" 
+        elsif sub_category_option  == 3
+            sub_category = "Male_Cloths"
+        elsif sub_category_option  == 4         
+            sub_category = "Female_Cloths"
+        end           
+     
+        puts "Enter Product Name"
+        product_name = gets.chomp
+
+        puts "Enter any feature like color"
+        feature = gets.chomp
+        puts "product name = #{product_name}  sub_category = #{sub_category} feature = #{feature}"
+        current_stock = PRODUCT_CONTROLLER.current_stock(sub_category,product_name,feature)
+        puts "Current stock = #{current_stock}"
+        
+        puts "Enter stock"
+        stock = gets.chomp.to_i
+
+            if update_option == 1
+                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "add")
+            elsif update_option == 2
+                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "reduce")
+            end
+                
+    elsif option == 5
         separator
         puts "ORDERS"
         separator
 
-     elsif option == 5
+    elsif option == 6
         separator
         puts "VIEW ORDERS TO ACCEPT"
         separator
 
-     elsif option == 6 
+    elsif option == 7 
         separator
         puts "REJECT ORDERS"
         separator
 
-     elsif option == 7 
+    elsif option == 8
         separator
         puts "VIEW ORDERS"
         separator
@@ -269,21 +307,72 @@ end
 
 #========= ADMIN RESPONSIBILITIES =================
 
+if role == "admin"
+    if option == 1
+        separator
+        puts "VIEW ALL VENDOR"
+        separator
 
-# # if role == "admin"
-# #     if option == 1
-# #         separator
-# #         puts "VIEW ALL VENDOR"3e
-# #         separator
-# #     elsif OPTION == 2
-# #         separator
-# #         puts "VIEW "
-# #         separator
-# #     elsif option ==3
-# #         separator
-# #         puts "VIEW ALL PRODUCTS"
-# #         separator
-# #     end
-# # end
+        users = USER_CONTROLLER.get_all_user
+        products = PRODUCT_CONTROLLER.get_all_product
+        s_no = 1
+        
+        count_product = 0
+
+        users.each do |data|
+    
+        if data[:role].strip.downcase == "vendor"
+                products.each do |product|
+            if product[:vendor_id].strip == data[:id].strip
+                count_product += 1
+             end
+         end
+
+                puts "#{s_no}.  name = #{data[:name].strip} ...email =  #{data[:email].strip} ... Total product = #{count_product}"
+                s_no += 1
+                count_product = 0
+            end
+        end
+
+
+    elsif OPTION == 2
+        separator
+        puts "VIEW ALL PRODUCTS"
+        separator
+    
+        products = PRODUCT_CONTROLLER.get_all_product
+        s_no = 1
+         puts "Product Name   ||   Product_Category   ||   Price  || Stock  ||  Vendor Name"
+        products.each do |data|
+            vendor_name = ""
+            users = USER_CONTROLLER.get_all_user
+            users.each do |user|
+                if user[:id].strip == data[:vendor_id].strip
+                    # puts "vendor id = #{data[:vendor_id].strip}  user id = #{user[:id].strip}"
+                    vendor_name = user[:name].strip
+                    break
+                end
+            end 
+
+    elsif option ==3
+        separator
+        puts "ADD PRODUCT"
+        separator
+
+        
+    elsif option ==4
+        separator
+        puts "REMOVE PRODUCT"
+        separator
+    elsif option == 5
+        separator
+        puts "UPDATE PRODUCT STOCK"
+        separator
+    elsif option ==3
+        separator
+        puts "VIEW ALL ORDERS"
+        separator
+    end
+end
 
 
