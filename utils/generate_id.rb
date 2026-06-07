@@ -28,9 +28,6 @@ class Generate_id
         
     end
 
-        #  puts @customers
-        #  puts @vendors
-        #  puts @admins
     end
     
 

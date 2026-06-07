@@ -2,45 +2,33 @@ require_relative './user_controller'
 require_relative '../Models/user.rb'
 
 class Auth_controller
-     attr_reader :users
+attr_reader :user_controller
 
     def initialize
-          user1 = User_controller.new
-          @users = user1.get_all_user
-     
+          @user_controller = User_controller.new
+         
     end
 
     def register(name , email , role)
     
            email = email.strip
+           name = name.strip
 
            #=== CHECK IF USER EXIST ======
 
-        #    user1 = User_controller.new
-        #    users = user1.get_all_user
-
-            # p @users
         is_exist = false
-            
-        @users.each do |user|
-            exist_email =  user[:email].strip
-   
-        # puts " #{exist_email} === #{email}"
-             
-             if exist_email == email 
+            user_data = @user_controller.get_user(name , email)
+            if user_data
                 puts "User already exist "
- 
-                 is_exist = true          
-                break 
-
-             end
+                  is_exist = true       
             end
+        
 
             # if user is not exist craete new user
-         p is_exist 
+        #  p is_exist 
         unless is_exist 
             if role.downcase == "customer"
-                Customer.new(id, name , email)
+                Customer.new(name , email)
             else
             Vendor.new( name , email)
             end
@@ -53,42 +41,25 @@ class Auth_controller
     def login(name , email)
 
         login = false ;
+        
+         data = @user_controller.get_user(name , email)
+         puts data 
 
-     @users.each do |data , chomp = true|
-        exist_name = data[:name].strip
-        exist_email = data[:email].strip
-
-        if name == exist_name  && email == exist_email
+        if data
             login = true
             puts "login successfully"
-            
             return login , data[:role].downcase.strip
         end
 
-        # p (name == exist_name  && email == exist_email)
-     
-     end
-
-     unless login 
-        puts "Invalid Credentials"
-        return login 
-     end
-end
+        unless login 
+            puts "Invalid Credentials"
+            return login 
+        end
+    end
 
 end
 
-# user1 = User_controller.new
-# user1.get_all_user
 
-# c1 = Customer.new(1 , "customer" , "Customer@gmail.com")
-#  v1 = Vendor.new(1 , "vendor" , "Verndor@gmail.com")
+# a1 = Auth_controller.new
 
-
-a1 = Auth_controller.new
-# a1.register(2, "auth" , "auth1@gmail.com" ,"Customer")
-# a1.register(2, "auth" , "Admin2@gmail.com" ,"Vendor")
-
-#  a = a1.login("vendor" , "vendor@gmail.com")
-# p a 
-
-
+   

@@ -97,10 +97,9 @@ end
 
 # (  p_name , p_price , p_stock , vendor_id  attr1)
 
-p1 = Charger.new("vivo" , 200 , 3 , 101 , "blue")
-p1 = Charger.new("vivo" , 200 , 32 , 101 , "blue")
-p1 = Charger.new("vivo" , 200 , 312, 101 , "blue")
-
+# p1 = Charger.new("vivo" , 200 , 3 , 101 , "blue")
+# p1 = Charger.new("vivo" , 200 , 32 , 101 , "blue")
+# p1 = Charger.new("vivo" , 200 , 312, 101 , "blue")
 
 
 

@@ -51,8 +51,8 @@ class Vendor < User
     end
 end
 
- user1 = User.new("Payal" , "payal@gmail.com" , "Admin")
- a1 = Admin.new("Admin" , "Admin@gmail.com")
+#  user1 = User.new("Payal" , "payal@gmail.com" , "Admin")
+#  a1 = Admin.new("Admin" , "Admin@gmail.com")
 #  c1 = Customer.new("customer" , "Customer@gmail.com")
 #  v1 = Vendor.new("vendor" , "Verndor@gmail.com")
 

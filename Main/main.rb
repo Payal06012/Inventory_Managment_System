@@ -4,16 +4,11 @@ require_relative '../Models/Electronics'
 require_relative '../Models/Cloths'
 
 
- PRODUCT = Product_controller.new
+PRODUCT_CONTROLLER = Product_controller.new.freeze
+USER_CONTROLLER = User_controller.new.freeze
 
- product = "afsgd"
- puts product
-
-
-def separator 
-    # puts "\n"
-    puts "*"*40
-    # puts "\n"
+def separator
+  puts "*"*40
 end
 
 # separator
@@ -32,7 +27,7 @@ end
 # when 1 
     
 #     puts "Enter your name "
-#     name = gets.chomp
+#     user_name = gets.chomp
 
 #     puts "Enter your email :"
 #     email = gets.chomp
@@ -42,22 +37,22 @@ end
 #     role = gets.chomp
 
 #     auth = Auth_controller.new
-#     auth.register(name , email , role)
+#     auth.register(user_name , email , role)
 
 # when 2
 #     login = false
 
 #     until login
 #     puts "Enter your Name "
-#     name = gets.chomp
+#     user_name = gets.chomp
     
 #     puts "Enter your email"
 #     email = gets.chomp
 
-#     p "#{name}  #{email}"
+#     p "#{user_name}  #{email}"
 
 #     auth = Auth_controller.new
-#     is_login = auth.login(name , email)
+#     is_login = auth.login(user_name , email)
 #     login = is_login[0]
 #     role = is_login[1]
 
@@ -71,7 +66,11 @@ end
 # end
 
 
-role = "customer"
+role = "vendor"
+user_name = "vendor"
+email = "vendor@123"
+
+
 
 case role 
 
@@ -110,7 +109,7 @@ when "admin"
 
 end
 
-# puts option 
+# # puts option 
 
 if role == "customer"
     if option == 1
@@ -136,7 +135,7 @@ if role == "customer"
         separator
         puts "ORDER HISTORY"
         separator
-
+opti
     end
 end
 
@@ -145,25 +144,65 @@ if role == "vendor"
         separator
         puts "VIEW PRODUCT"
         separator
-    elsif OPTION == 2
+    elsif option == 2
         separator
         puts "ADD NEW PRODUCT"
         separator
 
-        puts "Enter category  \n 1 Electronics   \n 2 . Cloths
-        Ctaegory = gets.chomp
+        puts "Enter number of category  \n 1 Electronics   \n 2. Cloths"
+        category = gets.chomp.to_i
+        
+        if category == 1
+         puts "Enter number of sub category  \n 1.Phones  \n 2. Charger"
+        sub_category = gets.chomp.to_i
+        elsif category == 2
+        puts "Enter number of sub category  \n 1. MaleCloths  \n 2. FemaleCloths"
+        sub_category = gets.chomp.to_i
+        end
      
         puts "Enter Product Name"
-        name = gets.chomp
+        product_name = gets.chomp
+
+        puts "Enter any feature like color"
+        feature = gets.chomp
 
         puts "Enter Product Price"
-        price = gets.chomp
+        price = gets.chomp.to_i
 
         puts "Enter stock"
-        stock = gets.chomp
+        stock = gets.chomp.to_i
+                
+        #get vendor_id
+         userData = USER_CONTROLLER.get_user(user_name , email)
+        #  puts "user_name = #{user_name}     email = #{email}"
+        if userData
+         vendorId = userData[:id].strip
+          puts vendorId 
+        end
 
 
-   
+        # create producct 
+        if category == 1
+            if  sub_category == 1
+
+                 Phone.new( product_name , price , stock , vendorId  ,feature)
+                     
+            else
+                 Charger.new( product_name , price , stock , vendorId ,feature)
+            end
+        elsif category == 2
+            if  sub_category == 1
+                 Male_Cloths.new( product_name , price , stock , vendorId ,feature)
+                     
+            else
+                 Female_Cloths.new( product_name , price , stock , vendorId ,feature)
+                
+            end
+          
+
+        end
+
+
 
     elsif option ==3
         separator
@@ -173,21 +212,20 @@ if role == "vendor"
 end
 
 
-if role == "admin"
-    if option == 1
-        separator
-        puts "VIEW ALL VENDOR"
-        separator
-    elsif OPTION == 2
-        separator
-        puts "VIEW "
-        separator
-    elsif option ==3
-        separator
-        puts "VIEW ALL PRODUCTS"
-        separator
-    end
-end
-
+# # if role == "admin"
+# #     if option == 1
+# #         separator
+# #         puts "VIEW ALL VENDOR"
+# #         separator
+# #     elsif OPTION == 2
+# #         separator
+# #         puts "VIEW "
+# #         separator
+# #     elsif option ==3
+# #         separator
+# #         puts "VIEW ALL PRODUCTS"
+# #         separator
+# #     end
+# # end
 
 

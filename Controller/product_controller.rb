@@ -72,8 +72,8 @@ class Product_controller
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 end
 
-p1 = Product_controller.new
-p1.remove_product("charger" , "vivo" , "blue")
+# p1 = Product_controller.new
+# p1.remove_product("charger" , "vivo" , "blue")
 
 # File.open("../Data/test.txt" , "r") do |f|
 #   p f 

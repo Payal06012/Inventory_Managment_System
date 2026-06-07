@@ -1,7 +1,6 @@
 
 class User_controller
 
-
     #===== GET ALL USER ===========
     
     def get_all_user
@@ -39,13 +38,32 @@ class User_controller
    
    end
 
- 
+   #==== get user by name and email =====
 
+   def get_user(name , email)
 
+      users = get_all_user
+      is_exist = false
+
+      users.each do |data , chomp = true|
+        exist_name = data[:name].strip.downcase
+        exist_email = data[:email].strip.downcase
+
+        if name.strip.downcase == exist_name  && email.strip.downcase == exist_email
+           is_exist = true
+           return data 
+        end
+      end
+
+      unless is_exist
+         return false
+      end
+
+   end
 
 end
 
 
 # user1 = User_controller.new
-#   arr = user1.get_all_user
-#   p arr
+# user = user1.get_user("admin" , "Admin@gmail.com")
+# p user 

@@ -46,7 +46,7 @@ class Male_Cloths < Cloths
 
       @stock =  calculate_stock(stock , p_stock)
 
-        puts "CLASS MALE CLOTHS"
+        # puts "CLASS MALE CLOTHS"
 
      
 #  @count_stock = @count_stock + p_stock 
@@ -55,11 +55,11 @@ class Male_Cloths < Cloths
      
     end
 
-
 end
 
-class Female_cloths  < Cloths
+class Female_Cloths  < Cloths
 
+   @count_stock = 0
 
     class << self 
      attr_accessor :count_stock
@@ -87,6 +87,6 @@ end
 
 # p1 = Male_Cloths.new( "shirts" , 200 , 3 , 101 , "blue")
 # p1 = Male_Cloths.new( "shirts" , 200 , 32 , 101 , "blue")
-# p1 = Male_Cloths.new( "shirts" , 200 , 312, 101 , "blue")
+# p1 = Female_Cloths.new( "shirts" , 200 , 312, 101 , "blue")
 
 
