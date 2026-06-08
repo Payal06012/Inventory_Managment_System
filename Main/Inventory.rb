@@ -15,68 +15,74 @@ def separator
   puts "*"*40
 end
 
-# separator
-# puts "Inventory_Management_System"
-# separator
+separator
+puts "Inventory_Management_System"
+separator
 
 
-# puts "Choose option"
-# puts "Enter 1 for Register"
-# puts "Enter 2 for Login"
+puts "Choose option"
+puts "Enter 1 for Register"
+puts "Enter 2 for Login"
 
-# input = gets.chomp.to_i
+input = gets.chomp.to_i
 
-# case input                                                                               
+case input                                                                               
 
-# when 1 
+when 1 
     
-#     puts "Enter your name "
-#     user_name = gets.chomp
+    puts "Enter your name "
+    user_name = gets.chomp
 
-#     puts "Enter your email :"
-#     email = gets.chomp
+    puts "Enter your email :"
+    email = gets.chomp
 
-#     puts "choose your Role : \n Customer  \n Vendor"
-#     puts "Enter Role :"
-#     role = gets.chomp
+    puts "choose your Role : \n Customer  \n Vendor"
+    puts "Enter Role :"
+    role = gets.chomp
 
-#     auth = Auth_controller.new
-#     auth.register(user_name , email , role)
+    auth = Auth_controller.new
+    auth.register(user_name , email , role)
+   
+    auth = Auth_controller.new
+     is_login = auth.login(user_name , email)
+    role = is_login[1]
 
-# when 2
-#     login = false
+when 2
+    login = false
 
-#     until login
-#     puts "Enter your Name "
-#     user_name = gets.chomp
+    until login
+    puts "Enter your Name "
+    user_name = gets.chomp
     
-#     puts "Enter your email"
-#     email = gets.chomp
+    puts "Enter your email"
+    email = gets.chomp
 
-#     p "#{user_name}  #{email}"
+    p "#{user_name}  #{email}"
 
-#     auth = Auth_controller.new
-#     is_login = auth.login(user_name , email)
-#     login = is_login[0]
-#     role = is_login[1]
+    auth = Auth_controller.new
+    is_login = auth.login(user_name , email)
+    login = is_login[0]
+    role = is_login[1]
 
-#      unless login
-#         puts "login Again"
-#      end
-#     end
+     unless login
+        puts "login Again"
+     end
+    end
 
-# else 
-#     puts "invalid option"
-# end
+else 
+    puts "invalid option"
+end
+
 
 #============================================
-role = "customer"
-user_name = "Admin"
-email = "Admin@gmail.com"
-# vendorId = "V5"
+# role = "vendor"
+# user_name = "vendor"
+# email = "vendor@123"
+# vendorId = "101"
 
 #======== MENU =================
 
+loop do 
 case role 
 
 when "customer"
@@ -87,7 +93,7 @@ when "customer"
     puts "\n Select Options by writing respective Number \n"
     puts "1. View All Products"
     puts "2. Place Order"
-    puts "3, View Order History"
+    puts "3. View Order History"
  
     option = gets.chomp.to_i
 
@@ -101,7 +107,7 @@ when "vendor"
     puts "2 Add new Product"
     puts "3 Remove Product"
     puts "4 upadte product stock"
-    puts "5 View incoming Order"
+    puts "5 View Pending Order"
     puts "6 Accepot Order"
     puts "7 Reject Order"
     puts "8 View Orders "
@@ -189,12 +195,20 @@ if role == "customer"
         separator
         puts "ORDER HISTORY"
         separator
-opti
+
+        get_all_order = ORDER_CONTROLLER.get_all_order
+        # puts get_all_order
+        get_all_order.each do |data|
+            if data[:customer_id].strip == customerId
+                puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip}"
+            end
+        end
+
+
     end
 end
 
 #======= VENDOR RESPONSIBILITIES =================
-
 
 if role == "vendor"
 
@@ -253,24 +267,24 @@ if role == "vendor"
         # create producct 
         if category == 1
             if  sub_category == 1
-
-                 Phone.new( product_name , price , stock , vendorId  ,feature)
-                     
-            else
+                 Phone.new( product_name , price , stock , vendorId  ,feature)                     
+            elsif sub_category == 2
                  Charger.new( product_name , price , stock , vendorId ,feature)
+            else
+                puts "Invalid category or sub_category"
             end
         elsif category == 2
             if  sub_category == 1
-                 Male_Cloths.new( product_name , price , stock , vendorId ,feature)
-                     
-            else
-                 Female_Cloths.new( product_name , price , stock , vendorId ,feature)
-                
-            end
-        
-        end
+                 Male_Cloths.new( product_name , price , stock , vendorId ,feature)                     
+            elsif sub_category == 2
+                 Female_Cloths.new( product_name , price , stock , vendorId ,feature)   
+            else 
+                puts "Invalid category or sub_category"
 
-    
+             end
+
+        
+        end    
     elsif option == 3
         separator
         puts "REMOVE PRODUCT"
@@ -286,6 +300,7 @@ if role == "vendor"
         feature = gets.chomp
 
         PRODUCT_CONTROLLER.remove_product( product_name, p_sub_category , feature)
+
     elsif option == 4
         separator
         puts "UPDATE PRODUCT STOCK"
@@ -326,13 +341,34 @@ if role == "vendor"
                 
     elsif option == 5
         separator
-        puts "ORDERS"
+        puts "VIEW PENDING ORDERS"
         separator
+            get_all_order = ORDER_CONTROLLER.get_all_order
+        get_all_order.each do |data|
+            if data[:vendor_id].strip == vendorId && data[:status].strip.downcase == "pending"
+                puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip}"
+            end
+        end
 
     elsif option == 6
         separator
-        puts "VIEW ORDERS TO ACCEPT"
+        puts "ACCEPT OR REHECT ORDERS"
         separator
+ 
+        get_all_order = ORDER_CONTROLLER.get_all_order
+        get_all_order.each do |data|
+            # p data
+            if data[:vendor_id].strip == vendorId && data[:status].strip.downcase == "pending"
+                puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip} \n"
+                puts "Enter A for accept and R for Rehect or N for next"
+                input = gets.chomp
+                if input == "A"
+                    # accept()
+                elsif input == "R"
+                    # reject()
+                end
+            end
+        end
 
     elsif option == 7 
         separator
@@ -510,4 +546,6 @@ if role == "admin"
     end
 end
 
+end
 
+git ad
