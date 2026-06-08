@@ -29,7 +29,7 @@ A27 | Payal | payal@gmail.com | Admin
 A28 | Admin | Admin@gmail.com | Admin
 V2 | auth | Admin2@gmail.com | Vendor
 A29 | Payal | payal@gmail.com | Admin
-A30 | Admin | Admin@gmail.com | Admin
+C1 | Admin | Admin@gmail.com | Customer
 V3 | auth` | Admin3@gmail.com | Vendor
 V4 | auth` | Admin3/@gmail.com | Vendor
 V5 | vendor | vendor@123 | Vendor

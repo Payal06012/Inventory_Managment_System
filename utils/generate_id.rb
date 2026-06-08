@@ -1,5 +1,9 @@
 require_relative "../Controller/user_controller"
 require_relative "../Controller/product_controller"
+require_relative "../Controller/order_controller"
+
+o = OrderController.new
+p o.get_all_order
 
 class Generate_id 
 
@@ -51,14 +55,16 @@ class Generate_id
          return products.length + 1
     
     end
- 
+
+    def get_order_id
+         order_controller = OrderController.new
+         orders = order_controller.get_all_order
+          return orders.length + 1    
+    end    
 end
 
-# g1 = Generate_id.new
+g1 = Generate_id.new
 # #  p g1.get_id("admin")
 #   p g1.get_product_id
-
-# user1 = User_controller.new
-#   arr = user1.get_all_user
-#   p arr
+  p g1.get_order_id
 

@@ -2,10 +2,14 @@ require_relative '../Controller/auth_controller'
 require_relative '../Controller/product_controller'
 require_relative '../Models/Electronics'
 require_relative '../Models/Cloths'
+require_relative '../Controller/user_controller'
+require_relative '../Models/Order'
+require_relative '../Controller/order_controller'
 
 
 PRODUCT_CONTROLLER = Product_controller.new.freeze
 USER_CONTROLLER = User_controller.new.freeze
+ORDER_CONTROLLER = OrderController.new.freeze
 
 def separator
   puts "*"*40
@@ -66,7 +70,7 @@ end
 # end
 
 #============================================
-role = "admin"
+role = "customer"
 user_name = "Admin"
 email = "Admin@gmail.com"
 # vendorId = "V5"
@@ -82,7 +86,7 @@ when "customer"
     
     puts "\n Select Options by writing respective Number \n"
     puts "1. View All Products"
-    puts "2. order Product"
+    puts "2. Place Order"
     puts "3, View Order History"
  
     option = gets.chomp.to_i
@@ -124,6 +128,14 @@ end
 #=======CUSTOMER RESPONSIBILITIES =================
 
 if role == "customer"
+    
+         #get csutomer_id
+    userData = USER_CONTROLLER.get_user(user_name , email)
+        #  puts "user_name = #{user_name}     email = #{email}"
+        if userData
+         customerId = userData[:id].strip
+        end
+
     if option == 1
         products = PRODUCT_CONTROLLER.get_all_product
         # puts products
@@ -140,8 +152,38 @@ if role == "customer"
 
     elsif option == 2
         separator
-        puts "ORDER PRODUCT"
+        puts "PLACE ORDER"
         separator
+
+        puts "Enter Product Name"
+        product_name = gets.chomp
+        puts "Enter Product Sub_Category"
+        sub_category = gets.chomp       
+        puts "Enter its feature"
+        feature = gets.chomp
+        puts "Enter quantity"
+
+        current_stock = PRODUCT_CONTROLLER.current_stock(sub_category,product_name,feature)
+        puts "Current stock = #{current_stock}"
+        quantity = gets.chomp.to_i
+        if quantity > current_stock
+            puts "Sorry current stock is less"
+            return
+        end
+
+        puts "Enter comment if any"
+        comment = gets.chomp
+        status = "Pending"
+
+        product_data = PRODUCT_CONTROLLER.get_product(sub_category, product_name, feature)
+        vendor_id = product_data[:vendor_id].strip
+        total_price = product_data[:price].to_i * quantity
+        product_id = product_data[:id].strip
+        
+     Order.new( product_id, customerId, vendor_id, quantity, total_price, status, comment)
+        #update stock
+      PRODUCT_CONTROLLER.update_stock(sub_category,product_name, feature, quantity , "reduce")
+
     
     elsif option == 3
         separator
@@ -150,7 +192,6 @@ if role == "customer"
 opti
     end
 end
-
 
 #======= VENDOR RESPONSIBILITIES =================
 
@@ -328,14 +369,14 @@ if role == "admin"
              end
          end
 
-                puts "#{s_no}.  name = #{data[:name].strip} ...email =  #{data[:email].strip} ... Total product = #{count_product}"
+                puts "#{data[:id]}.  name = #{data[:name].strip} ...email =  #{data[:email].strip} ... Total product = #{count_product}"
                 s_no += 1
                 count_product = 0
             end
         end
 
 
-    elsif OPTION == 2
+    elsif option == 2
         separator
         puts "VIEW ALL PRODUCTS"
         separator
@@ -353,22 +394,116 @@ if role == "admin"
                     break
                 end
             end 
+        end
 
     elsif option ==3
         separator
         puts "ADD PRODUCT"
         separator
 
+        puts "Enter Vendor Id"
+        vendorId = gets.chomp
+
+        puts "Enter number of category  \n 1 Electronics   \n 2. Cloths"
+        category = gets.chomp.to_i
         
-    elsif option ==4
+        if category == 1
+         puts "Enter number of sub category  \n 1.Phones  \n 2. Charger"
+        sub_category = gets.chomp.to_i
+        elsif category == 2
+        puts "Enter number of sub category  \n 1. MaleCloths  \n 2. FemaleCloths"
+        sub_category = gets.chomp.to_i
+        end
+     
+        puts "Enter Product Name"
+        product_name = gets.chomp
+
+        puts "Enter any feature like color"
+        feature = gets.chomp
+
+        puts "Enter Product Price"
+        price = gets.chomp.to_i
+
+        puts "Enter stock"
+        stock = gets.chomp.to_i
+                
+        # create producct 
+        if category == 1
+            if  sub_category == 1
+
+                 Phone.new( product_name , price , stock , vendorId  ,feature)
+                     
+            else
+                 Charger.new( product_name , price , stock , vendorId ,feature)
+            end
+        elsif category == 2
+            if  sub_category == 1
+                 Male_Cloths.new( product_name , price , stock , vendorId ,feature)
+                     
+            else
+                 Female_Cloths.new( product_name , price , stock , vendorId ,feature)
+                
+            end
+        
+        end
+
+    
+    elsif option == 4
         separator
         puts "REMOVE PRODUCT"
         separator
+        
+        puts "Enter Product Name"
+        product_name = gets.chomp
+
+        puts "Enter Product Sub_Category"
+        p_sub_category = gets.chomp
+
+        puts "Enter its feature"
+        feature = gets.chomp
+
+        PRODUCT_CONTROLLER.remove_product( product_name, p_sub_category , feature)
+    
     elsif option == 5
         separator
         puts "UPDATE PRODUCT STOCK"
         separator
-    elsif option ==3
+
+        puts "choose a number \n 1 . Add stock  \n 2.Reduce Stock"
+        update_option = gets.chomp.to_i
+        puts "Enter number of sub category  \n 1.Phones  \n 2. Charger \n 3. MaleCloths  \n 4. FemaleCloths"
+        sub_category_option = gets.chomp.to_i
+
+        if sub_category_option == 1
+            sub_category = "Phone" 
+        elsif sub_category_option  == 2
+            sub_category = "Charger" 
+        elsif sub_category_option  == 3
+            sub_category = "Male_Cloths"
+        elsif sub_category_option  == 4         
+            sub_category = "Female_Cloths"
+        end           
+     
+        puts "Enter Product Name"
+        product_name = gets.chomp
+
+        puts "Enter any feature like color"
+        feature = gets.chomp
+        puts "product name = #{product_name}  sub_category = #{sub_category} feature = #{feature}"
+        current_stock = PRODUCT_CONTROLLER.current_stock(sub_category,product_name,feature)
+        puts "Current stock = #{current_stock}"
+        
+        puts "Enter stock"
+        stock = gets.chomp.to_i
+
+            if update_option == 1
+                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "add")
+            elsif update_option == 2
+                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "reduce")
+            end
+            
+
+    elsif option == 6
         separator
         puts "VIEW ALL ORDERS"
         separator

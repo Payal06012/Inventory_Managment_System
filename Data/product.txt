@@ -1,12 +1,12 @@
-1 | vivo | Electronics | Phone | blue | 200 | 3 | 101
-34 | ahirts | Cloths | Male_Cloths | blue | 344 | 3545 | V5
-35 | 1 | Electronics | Charger | errr | 0 | 344 | V5
-38 | suit | Cloths | Female_Cloths | blue | 2343 | 53 | V5
-39 | shirts | Cloths | Male_Cloths | blue | 200 | 3 | 101
-40 | pents | Cloths | Male_Cloths | blue | 200 | 3 | 101
-1 | vivo | Electronics | Phone | blue | 200 | 3 | 101
-34 | ahirts | Cloths | Male_Cloths | blue | 344 | 3545 | V5
-35 | 1 | Electronics | Charger | errr | 0 | 344 | V5
-38 | suit | Cloths | Female_Cloths | blue | 2343 | 53 | V5
-39 | shirts | Cloths | Male_Cloths | blue | 200 | 3 | 101
-40 | pents | Cloths | Male_Cloths | blue | 200 | 3 | 101
+1 | vivo | Electronics | Phone | blue | 200 | 2 | 101
+3 | 1 | Electronics | Charger | errr | 0 | 344 | V5
+4 | suit | Cloths | Female_Cloths | blue | 2343 | 19 | V5
+5 | shirts | Cloths | Male_Cloths | blue | 200 | 9 | 101
+6 | pents | Cloths | Male_Cloths | blue | 200 | 1907 | 101
+7 | vivo | Electronics | Phone | blue | 200 | 3 | 101
+9 | 1 | Electronics | Charger | errr | 0 | 344 | V5
+10 | suit | Cloths | Female_Cloths | blue | 2343 | 53 | V5
+11 | shirts | Cloths | Male_Cloths | blue | 200 | 3 | 101
+12 |  |  |  |  |  |  | 
+13 | vivo | Electronics | Phone | navy | 30000 | 56 | V12
+14 | Shirts | Cloths | Male_Cloths | orange | 345 | 223 | v12
