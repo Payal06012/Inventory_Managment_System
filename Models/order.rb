@@ -31,16 +31,3 @@ class Order
     end
 
 end
-
-#   order_id: "O101",
-#   product_id: "P101",
-#   customer_id: "C101",
-#   vendor_id: "V101",
-#   quantity: 2,
-#   total_price: 400,
-#   status: "Pending",
-#   comment: "",
-#   order_date: "2026-06-08 10:30:00"
-
-# p Time.now.strftime("%Y-%m-%d %H:%M:%S")
-

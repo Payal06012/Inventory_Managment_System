@@ -109,21 +109,22 @@ class Product_controller
     end
 
  
-def update_stock(sub_category, name, attrr, stock , update_type)
- 
-  product = get_product(sub_category, name, attrr)
-
-  unless product
-    puts "Product not found."
-    return
-  end
-
-  product_id = product[:id].strip
+def update_stock(product_id , stock , update_type)
+   
+    # product_id = product[:id].strip
 
   products = get_all_product
 
   product_to_update = products.find do |data|
     data[:id].strip == product_id
+  end
+  # product = get_product(sub_category, name, attrr)
+   
+  puts product_to_update
+
+  unless product_to_update
+    puts "Product not found."
+    return
   end
 
   if product_to_update
@@ -146,7 +147,7 @@ def update_stock(sub_category, name, attrr, stock , update_type)
     product_to_update[:stock] = updated_stock.to_s
 
     puts "Stock updated successfully."
-    puts "Current stock of #{name} is #{updated_stock}."  
+    puts "Current stock of #{product_to_update[:name]} is #{updated_stock}."  
 
     File.open("../Data/product.txt", "w") do |file|
       products.each do |data|
@@ -162,11 +163,11 @@ end
 end
 
 
-p1 = Product_controller.new
+# p1 = Product_controller.new
 # p1.remove_product("Adapter" , "Charger","White")
 # product = p1.get_product( "Adapter" , "Charger","White")
 # p product 
-p1.update_stock("Male_Cloths" , "pents","Blue" , 34, "add"  )
+# p1.update_stock("6" , 34, "add"  )
 # puts p1.current_stock("Male_Cloths" , "PENTS","Blue" )
 # p1.current_stock("Charger" , "ERRR","O" )
 

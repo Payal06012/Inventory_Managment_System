@@ -75,14 +75,14 @@ end
 
 
 #============================================
-# role = "vendor"
-# user_name = "vendor"
-# email = "vendor@123"
-# vendorId = "101"
+# role = "customer"
+# user_name = "test1"
+# email = "test@123"
+# vendorId = "C1"
 
 #======== MENU =================
-
-loop do 
+exit = false 
+until exit do 
 case role 
 
 when "customer"
@@ -94,6 +94,7 @@ when "customer"
     puts "1. View All Products"
     puts "2. Place Order"
     puts "3. View Order History"
+    puts "4. Exit "
  
     option = gets.chomp.to_i
 
@@ -108,9 +109,9 @@ when "vendor"
     puts "3 Remove Product"
     puts "4 upadte product stock"
     puts "5 View Pending Order"
-    puts "6 Accepot Order"
-    puts "7 Reject Order"
-    puts "8 View Orders "
+    puts "6 Accept or Reject Order"
+    puts "7 View All Orders "
+    puts "8 Exit"
 
     option = gets.chomp.to_i
 
@@ -188,7 +189,7 @@ if role == "customer"
         
      Order.new( product_id, customerId, vendor_id, quantity, total_price, status, comment)
         #update stock
-      PRODUCT_CONTROLLER.update_stock(sub_category,product_name, feature, quantity , "reduce")
+      PRODUCT_CONTROLLER.update_stock(product_id, quantity , "reduce")
 
     
     elsif option == 3
@@ -203,8 +204,8 @@ if role == "customer"
                 puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip}"
             end
         end
-
-
+    elsif option == 4
+        exit = true
     end
 end
 
@@ -231,7 +232,7 @@ if role == "vendor"
 
         products.each do |data|    
            if data[:vendor_id].strip == vendorId
-             puts "#{s_no}.  s#{data[:name].strip} ... #{data[:category].strip} ... #{data[:stock].strip}"
+             puts "#{s_no}.  #{data[:name].strip} ... #{data[:category].strip} ... #{data[:stock].strip}"
              s_no += 1
             end
         end
@@ -333,10 +334,13 @@ if role == "vendor"
         puts "Enter stock"
         stock = gets.chomp.to_i
 
+        product_data = PRODUCT_CONTROLLER.get_product(sub_category, product_name, feature)
+        product_id = product_data[:id].strip
+
             if update_option == 1
-                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "add")
+                PRODUCT_CONTROLLER.update_stock(product_id , stock , "add")
             elsif update_option == 2
-                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "reduce")
+                PRODUCT_CONTROLLER.update_stock(product_id , stock , "reduce")
             end
                 
     elsif option == 5
@@ -352,33 +356,32 @@ if role == "vendor"
 
     elsif option == 6
         separator
-        puts "ACCEPT OR REHECT ORDERS"
+        puts "ACCEPT OR REJECT ORDERS"
         separator
  
         get_all_order = ORDER_CONTROLLER.get_all_order
         get_all_order.each do |data|
-            # p data
             if data[:vendor_id].strip == vendorId && data[:status].strip.downcase == "pending"
                 puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip} \n"
                 puts "Enter A for accept and R for Rehect or N for next"
                 input = gets.chomp
-                if input == "A"
-                    # accept()
-                elsif input == "R"
-                    # reject()
+                if input == "A" || "a"
+                    ORDER_CONTROLLER.update_status(data[:order_id] , "accept")
+                elsif input == "R" || "r"
+                    ORDER_CONTROLLER.update_status(data[:order_id] , "reject")
                 end
             end
         end
 
-    elsif option == 7 
-        separator
-        puts "REJECT ORDERS"
-        separator
 
-    elsif option == 8
+    elsif option == 7
         separator
         puts "VIEW ORDERS"
         separator
+        
+
+    elsif option == 9
+        exit = true
     end
 end
 
@@ -392,8 +395,7 @@ if role == "admin"
 
         users = USER_CONTROLLER.get_all_user
         products = PRODUCT_CONTROLLER.get_all_product
-        s_no = 1
-        
+        s_no = 1       
         count_product = 0
 
         users.each do |data|
@@ -477,8 +479,7 @@ if role == "admin"
                  Male_Cloths.new( product_name , price , stock , vendorId ,feature)
                      
             else
-                 Female_Cloths.new( product_name , price , stock , vendorId ,feature)
-                
+                 Female_Cloths.new( product_name , price , stock , vendorId ,feature)               
             end
         
         end
@@ -532,10 +533,13 @@ if role == "admin"
         puts "Enter stock"
         stock = gets.chomp.to_i
 
+        product =  PRODUCT_CONTROLLER.et_product(sub_category , product_name , feature)
+        product_id = product[:p_id]
+
             if update_option == 1
-                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "add")
+                PRODUCT_CONTROLLER.update_stock(product_id, stock , "add")
             elsif update_option == 2
-                PRODUCT_CONTROLLER.update_stock(sub_category, product_name, feature, stock , "reduce")
+                PRODUCT_CONTROLLER.update_stock(product_id, stock , "reduce")
             end
             
 
