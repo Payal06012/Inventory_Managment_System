@@ -3,9 +3,9 @@ class Product_controller
     #===SAVE PRODUCT DATA IN FILE=======
 
     def  save_product(data)
-      p data 
+      # p data 
        File.open("../Data/product.txt" , "a" ) do |file|
-        p data
+        # p data
 
         file.puts data
 
@@ -52,7 +52,7 @@ class Product_controller
       is_exist = true
         #  puts "#{sub_category}  #{name}  #{attrr}"
         #  get_all_product.delete(data)
-        puts index
+        # puts index
           products.delete_at(index)
 
       else
@@ -105,7 +105,7 @@ class Product_controller
     def current_stock(sub_category , name , attrr)
 
         product = get_product(sub_category , name , attrr)
-        p product[:stock].to_i
+         product[:stock].to_i
     end
 
  
@@ -129,7 +129,7 @@ def update_stock(sub_category, name, attrr, stock , update_type)
   if product_to_update
     current_stock = product_to_update[:stock].to_i
 
-    puts "stock = #{stock}  current stock = #{current_stock}  update type = #{update_type}"
+    # puts "stock = #{stock}  current stock = #{current_stock}  update type = #{update_type}"
 
     if update_type == "reduce"
       if stock.to_i < current_stock 

@@ -16,12 +16,12 @@ class Electronics < Product
 
       @stock =  calculate_stock(stock , p_stock)
 
-        puts "CLASS ELECTRONICS"
+        # puts "CLASS ELECTRONICS"
 
-        puts "stock : #{p_stock}" 
+        # puts "stock : #{p_stock}" 
 
         # @count_stock = @count_stock + p_stock
-        puts "Electronics stock = #{@count_stock}"
+        # puts "Electronics stock = #{@count_stock}"
 
     super(  p_name , p_price , @category, @stock, vendor_id , p_sub_category, attr1)
      
@@ -46,7 +46,7 @@ class Phone < Electronics
 
       @stock =  calculate_stock(stock , p_stock)
 
-        puts "CLASS PHONE"
+        # puts "CLASS PHONE"
 
      
 #  @count_stock = @count_stock + p_stock 
@@ -70,11 +70,11 @@ class Charger < Electronics
        
         @sub_category = "Charger"
 
-        puts "CLASS CHARGER" 
+        # puts "CLASS CHARGER" 
 
         # === culculating stock 
 
-        puts "class stock variable = #{self.class.count_stock}"
+        # puts "class stock variable = #{self.class.count_stock}"
 
         stock = self.class.count_stock
         # @stock += p_stock 
@@ -82,7 +82,7 @@ class Charger < Electronics
 
       @stock =  calculate_stock(stock , p_stock)
 
-        puts "stock = #{@stock}"
+        # puts "stock = #{@stock}"
 
 
         super(  p_name , p_price , @stock, vendor_id , @sub_category, attr1)

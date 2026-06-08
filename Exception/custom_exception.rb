@@ -1,7 +1,7 @@
-class Custom_Exception
-
-    def user_alreadyt_exist
-      
-    end
-
+class UserAlreadyExistError < StandardError
+  def initialize(msg = "User already exists")
+    super(msg)
+  end
 end
+
+    

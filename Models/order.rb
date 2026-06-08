@@ -2,7 +2,8 @@ require_relative "../Controller/order_controller"
 require_relative "../utils/generate_id"
 
 class Order
-    attr_accessor :order_id, :product_id, :customer_id, :vendor_id, :quantity, :total_price, :status, :comment, :order_date
+
+    attr_accessor :order_id, :product_id, :customer_id, :vendor_id, :quantity, :total_price, :status, :comment, :order_daten
     
     def initialize( product_id, customer_id, vendor_id, quantity, total_price, status, comment)
 

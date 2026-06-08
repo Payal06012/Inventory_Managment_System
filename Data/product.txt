@@ -1,12 +1,8 @@
-1 | vivo | Electronics | Phone | blue | 200 | 2 | 101
-3 | 1 | Electronics | Charger | errr | 0 | 344 | V5
-4 | suit | Cloths | Female_Cloths | blue | 2343 | 19 | V5
-5 | shirts | Cloths | Male_Cloths | blue | 200 | 9 | 101
-6 | pents | Cloths | Male_Cloths | blue | 200 | 1907 | 101
-7 | vivo | Electronics | Phone | blue | 200 | 3 | 101
-9 | 1 | Electronics | Charger | errr | 0 | 344 | V5
-10 | suit | Cloths | Female_Cloths | blue | 2343 | 53 | V5
-11 | shirts | Cloths | Male_Cloths | blue | 200 | 3 | 101
-12 |  |  |  |  |  |  | 
-13 | vivo | Electronics | Phone | navy | 30000 | 56 | V12
-14 | Shirts | Cloths | Male_Cloths | orange | 345 | 223 | v12
+1 | pents | Cloths | Male_Cloths | blue | 200 | 241 | 101
+2 | Vivo | Electronics | Phone | blue | 45000 | 45 | V3
+3 | Vivo | Electronics | Charger | blue | 45000 | 45 | V3
+4 | Adapter | Electronics | Phone | white | 345 | 56 | V3
+5 | Adapter | Electronics | Charger | white | 345 | 56 | V3
+6 | dghd | Electronics | Phone | ghdd | 0 | 0 | V3
+7 | dghd | Electronics | Charger | ghdd | 0 | 0 | V3
+8  |  shirts |  Cloths  |   Male_Cloths  |  black   |   500  |   456  |   V3

@@ -19,7 +19,7 @@ class Product
         @attr1 = attr1
         @vendor_id = vendor_id
         
-        puts " Product stock  = #{p_stock}"
+        # puts " Product stock  = #{p_stock}"
 
     puts show 
 
