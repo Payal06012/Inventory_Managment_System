@@ -3,13 +3,14 @@ require_relative '../Controller/product_controller'
 require_relative '../Models/Electronics'
 require_relative '../Models/Cloths'
 require_relative '../Controller/user_controller'
-require_relative '../Models/Order'
+require_relative '../Models/order'
 require_relative '../Controller/order_controller'
 
 
 PRODUCT_CONTROLLER = Product_controller.new.freeze
 USER_CONTROLLER = User_controller.new.freeze
 ORDER_CONTROLLER = OrderController.new.freeze
+
 
 def separator
   puts "*"*40
@@ -384,13 +385,15 @@ if role == "vendor"
  
         get_all_order = ORDER_CONTROLLER.get_all_order
         get_all_order.each do |data|
+
             if data[:vendor_id].strip == vendorId && data[:status].strip.downcase == "pending"
+
                 puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip} \n"
                 puts "Enter A for accept and R for Rehect or N for next"
                 input = gets.chomp
-                if input == "A" || "a"
+                if input == "A" or input == "a"
                     ORDER_CONTROLLER.update_status(data[:order_id] , "accept")
-                elsif input == "R" || "r"
+                elsif input == "R"or input == "r"
                     ORDER_CONTROLLER.update_status(data[:order_id] , "reject")
                 end
             end
