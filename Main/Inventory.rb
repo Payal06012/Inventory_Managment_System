@@ -30,23 +30,36 @@ case input
 
 when 1 
     
-    puts "Enter your name "
-    user_name = gets.chomp
+    is_register = false
+    until is_register
 
-    puts "Enter your email :"
-    email = gets.chomp
+        puts "Enter your name "
+        user_name = gets.chomp
+    
+        puts "Enter your email :"
+        email = gets.chomp
+    
+        puts "choose your Role : \n Customer  \n Vendor"
+        puts "Enter Role :"
+        role = gets.chomp
+    
+        auth = Auth_controller.new
+        register = auth.register(user_name , email , role)
+        # p register
 
-    puts "choose your Role : \n Customer  \n Vendor"
-    puts "Enter Role :"
-    role = gets.chomp
+        if register
+          is_register = true
 
-    auth = Auth_controller.new
-    auth.register(user_name , email , role)
-   
-    auth = Auth_controller.new
-     is_login = auth.login(user_name , email)
-    role = is_login[1]
+           auth = Auth_controller.new
+           is_login = auth.login(user_name , email)
+           role = is_login[1]
 
+        else
+            puts "regidter again"
+        end
+         
+    end
+ 
 when 2
     login = false
 
@@ -61,8 +74,10 @@ when 2
 
     auth = Auth_controller.new
     is_login = auth.login(user_name , email)
+   
     login = is_login[0]
     role = is_login[1]
+  
 
      unless login
         puts "login Again"
@@ -256,7 +271,7 @@ if role == "vendor"
         puts "Enter Product Name"
         product_name = gets.chomp
 
-        puts "Enter any feature like color"
+        puts "Enter any feature of product"
         feature = gets.chomp
 
         puts "Enter Product Price"
@@ -325,7 +340,7 @@ if role == "vendor"
         puts "Enter Product Name"
         product_name = gets.chomp
 
-        puts "Enter any feature like color"
+        puts "Enter any feature of product"
         feature = gets.chomp
         puts "product name = #{product_name}  sub_category = #{sub_category} feature = #{feature}"
         current_stock = PRODUCT_CONTROLLER.current_stock(sub_category,product_name,feature)
@@ -348,10 +363,18 @@ if role == "vendor"
         puts "VIEW PENDING ORDERS"
         separator
             get_all_order = ORDER_CONTROLLER.get_all_order
+        
+            is_exist = false
+
         get_all_order.each do |data|
             if data[:vendor_id].strip == vendorId && data[:status].strip.downcase == "pending"
                 puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip}"
+                is_exist = false
             end
+        end
+         
+        unless is_exist
+         puts "product not added add "
         end
 
     elsif option == 6
@@ -377,10 +400,15 @@ if role == "vendor"
     elsif option == 7
         separator
         puts "VIEW ORDERS"
-        separator
+        separator   
         
+         orders = ORDER_CONTROLLER.get_all_order
+         orders.each do |data|
+             puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip}"
+        
+         end
 
-    elsif option == 9
+    elsif option == 8
         exit = true
     end
 end
@@ -456,7 +484,7 @@ if role == "admin"
         puts "Enter Product Name"
         product_name = gets.chomp
 
-        puts "Enter any feature like color"
+        puts "Enter any feature of product"
         feature = gets.chomp
 
         puts "Enter Product Price"
@@ -496,7 +524,7 @@ if role == "admin"
         puts "Enter Product Sub_Category"
         p_sub_category = gets.chomp
 
-        puts "Enter its feature"
+        puts "Enter its feature of product"
         feature = gets.chomp
 
         PRODUCT_CONTROLLER.remove_product( product_name, p_sub_category , feature)
@@ -524,7 +552,7 @@ if role == "admin"
         puts "Enter Product Name"
         product_name = gets.chomp
 
-        puts "Enter any feature like color"
+        puts "Enter any feature of product"
         feature = gets.chomp
         puts "product name = #{product_name}  sub_category = #{sub_category} feature = #{feature}"
         current_stock = PRODUCT_CONTROLLER.current_stock(sub_category,product_name,feature)
@@ -547,7 +575,14 @@ if role == "admin"
         separator
         puts "VIEW ALL ORDERS"
         separator
-    end
+
+        orders = ORDER_CONTROLLER.get_all_order
+         orders.each do |data|
+             puts "order id = #{data[:order_id].strip}...  product id = #{data[:product_id].strip} ... quantity = #{data[:quantity].strip} ... total price = #{data[:total_price].strip} ... status = #{data[:status].strip} ... comment = #{data[:comment].strip} ... order date = #{data[:order_date].strip}"
+        
+         end
+    
+     end
 end
 
 end

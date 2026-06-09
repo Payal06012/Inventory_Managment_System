@@ -11,8 +11,6 @@ class User_controller
         #  p arr[0]
       all_users = arr.map do |data|
          id , name , email , role =  data.split("|")
-       
-
         #   p data.strip
          
         users = {id: id , name: name , email: email , role: role}
@@ -46,6 +44,7 @@ class User_controller
       is_exist = false
 
       users.each do |data , chomp = true|
+         next if data[:name].nil? || data[:email].nil?
         exist_name = data[:name].strip.downcase
         exist_email = data[:email].strip.downcase
 
@@ -60,6 +59,7 @@ class User_controller
       end
 
    end
+   
 
 end
 

@@ -2,9 +2,6 @@ require_relative "../Controller/user_controller"
 require_relative "../Controller/product_controller"
 require_relative "../Controller/order_controller"
 
-o = OrderController.new
-p o.get_all_order
-
 class Generate_id 
 
     attr_accessor :admins  , :customers  , :vendors
@@ -20,16 +17,18 @@ class Generate_id
     @vendors = 1
     @admins = 1
 
-    all_user.each do |data , chomp = true| 
+    all_user.each do |data| 
+        if data[:role]
+     
        if data[:role].downcase.strip == "customer"
            @customers += 1
        elsif data[:role].downcase.strip == "vendor"
            @vendors += 1
        else
            @admins += 1 
-       end   
-       
-        
+       end  
+        end 
+              
     end
 
     end
@@ -63,8 +62,7 @@ class Generate_id
     end    
 end
 
-g1 = Generate_id.new
-# #  p g1.get_id("admin")
-#   p g1.get_product_id
-  p g1.get_order_id
-
+# g1 = Generate_id.new
+# # #  p g1.get_id("admin")
+# #   p g1.get_product_id
+#   p g1.get_order_id

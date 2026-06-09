@@ -6,20 +6,24 @@ class User
 
     def initialize(name , email , role)
     
-        g = Generate_id.new
+        generate_id = Generate_id.new
         
-
-     @id = g.get_user_id(role)        # get id from genarator function 
+       puts role
+     @id = generate_id.get_user_id(role)        # get id from genarator function 
      @name = name
      @email = email
      @role = role
-
 
   #convert data to string to save in a file 
      data = to_string_data
      p data 
 
      user = User_controller.new   
+     admin = user.get_user("Admin123" , "Admin@gmail.com")
+     unless admin
+       puts "ADMIN #{admin}"
+       user.save_user(" A1 | Admin123 | Admin@gmail.com | Admin")
+     end
      user.save_user(data)
     
     end
@@ -54,5 +58,7 @@ end
 #  user1 = User.new("Payal" , "payal@gmail.com" , "Admin")
 #  a1 = Admin.new("Admin" , "Admin@gmail.com")
 #  c1 = Customer.new("customer" , "Customer@gmail.com")
-#  v1 = Vendor.new("vendor" , "Verndor@gmail.com")
+
+
+#  v1 = Vendor.new("vendor" , "Verndor@gmail.com" )
 

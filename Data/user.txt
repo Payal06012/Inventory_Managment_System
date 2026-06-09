@@ -1,4 +1,9 @@
 V1 | test | test@123 | Vendor
 C1 | test1 | test1@123 | Customer
 V2 | test2 | test2@gmail.com | Vendor
-V3 | test123 | test123@gmail.com | Vendor
+A1 | Admin123 | Admin@gmail.com | Admin
+C2 | customer | Customer@gmail.com | Customer
+C3 | payal | payal123@gmail.com | Customer
+C4 | test123 | test@a.com | Customer
+V3 | test123 | teat123@gmail.com | Vendor
+V4 | test123 | test@gmail.com | Vendor
